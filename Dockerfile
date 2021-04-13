@@ -8,7 +8,7 @@ RUN pip3 install -r /antares_data_server/requirements.txt && \
 
 ADD antares-backend/antares_environment /workdir/antares_environment
 
-RUN cd /workdir/antares_environment/antares_src && bash make.sh
+RUN mkdir -p /workdir/antares_environment/antares_bin; mkdir -p /workdir/antares_environment/antares_output; cd /workdir/antares_environment/antares_src; bash make.sh
 
 WORKDIR /workdir/antares_environment
 
