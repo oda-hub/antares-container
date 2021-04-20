@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse
 from openkm3.store import KM3Store
 from antares_data_server.backend_api import Configurer
@@ -17,7 +19,7 @@ def main(argv=None):
     with open(os.path.join(conf.root_wd, 
                            conf.antares_env_dir, 
                            conf.data_dir, 
-                           'background.txt')) as fd:
+                           'background.txt'), 'w') as fd:
         print(*interpolation.data, sep=' ', file=fd)
     
     lookup = store.get('ana20_01_acc')
@@ -25,7 +27,7 @@ def main(argv=None):
     with open(os.path.join(conf.root_wd, 
                            conf.antares_env_dir, 
                            conf.data_dir, 
-                           'acc.txt')) as fd:
+                           'acc.txt'), 'w') as fd:
         acc_df.to_csv(fd, sep=' ', index=False, header=False)
     
     data = store.get('ana20_01_vo')
@@ -34,7 +36,7 @@ def main(argv=None):
     with open(os.path.join(conf.root_wd, 
                            conf.antares_env_dir, 
                            conf.data_dir, 
-                           'ANTARES.data')) as fd:
+                           'ANTARES.data'), 'w') as fd:
         data_df.to_csv(fd, columns=['ra', 'decl', 'nhit', 'beta', 'mjd'], 
                        sep='\t', index=False, header=False)
      

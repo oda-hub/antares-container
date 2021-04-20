@@ -5,7 +5,7 @@ mkdir -pv $XDG_CACHE_HOME/astropy
 
 ls -tlroa /var/log/containers/
 
-python3 /antares/populate_data.py -conf_file $ANTARES_CONFIG_FILE
+python3 ./populate_data.py -conf_file $ANTARES_CONFIG_FILE
 
 python3 /antares_data_server/bin/run_antares_back_end.py \
         -conf_file $ANTARES_CONFIG_FILE \
