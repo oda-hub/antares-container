@@ -17,8 +17,7 @@ ADD entrypoint.sh /workdir/entrypoint.sh
 
 RUN mkdir -p /workdir/antares_environment/antares_bin; \
     mkdir -p /workdir/antares_environment/antares_output; \
-    cd /workdir/antares_environment/antares_src; bash make.sh; \
-    rm /workdir/antares_environment/antares_data/*;\
+    cd /workdir/antares_environment/antares_src; bash make.sh; \ 
     chown -R antares:antares /workdir
 
 USER antares

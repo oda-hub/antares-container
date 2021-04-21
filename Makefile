@@ -10,7 +10,7 @@ run: build
 		-v /tmp/dev/log:/var/log/containers \
 		-v /tmp/dev/workdir:/workdir/antares_environment/antares_output \
 		--rm \
-		-p 8010:8000 \
+		-p 8000:8000 \
 		--name dev-oda-antares \
 		$(image) 
 
