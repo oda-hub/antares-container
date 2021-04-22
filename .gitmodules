@@ -1,4 +1,3 @@
 [submodule "antares-backend"]
 	path = antares-backend
-	url = git@github.com:dsavchenko/antares-backend.git
-	branch = master
+	url = git@github.com:oda-hub/antares-backend.git
