@@ -28,14 +28,10 @@ def main(argv=None):
     with open(os.path.join(conf.data_dir, 
                             'background.txt'), 'w') as fd:
             print(*interpolation.data, sep=' ', file=fd)
-    with open(os.path.join(conf.root_wd, 
-                            conf.antares_env_dir, 
-                            conf.data_dir, 
+    with open(os.path.join(conf.data_dir, 
                             'acc.txt'), 'w') as fd:
             acc_df.to_csv(fd, sep=' ', index=False, header=False)
-    with open(os.path.join(conf.root_wd, 
-                            conf.antares_env_dir, 
-                            conf.data_dir, 
+    with open(os.path.join(conf.data_dir, 
                             'ANTARES.data'), 'w') as fd:
             data_df.to_csv(fd, columns=['ra', 'decl', 'nhit', 'beta', 'mjd'], 
                         sep='\t', index=False, header=False)
