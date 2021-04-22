@@ -1,29 +1,23 @@
-FROM centos:8
-
-RUN yum -y install epel-release && yum -y install root && yum -y install git
-ADD antares-backend/antares_data_server_wd /antares_data_server
-
-RUN pip3 install -r /antares_data_server/requirements.txt && \
-    pip3 install /antares_data_server
+FROM rootproject/root:6.22.08-ubuntu20.04
 
 RUN pip3 install git+https://git.km3net.de/open-data/openkm3
 
-RUN useradd --home-dir /workdir --create-home --uid 1000 antares
+ADD antares-backend /antares-backend
+RUN pip install -r /antares-backend/requirements.txt && \
+    pip install /antares-backend
 
-ADD antares-backend/antares_environment /workdir/antares_environment
+ADD populate_data.py /antares/populate_data.py
+ADD config.yml /antares/config.yml
+ADD entrypoint.sh /antares/entrypoint.sh
 
-ADD populate_data.py /workdir/populate_data.py
-ADD entrypoint.sh /workdir/entrypoint.sh
+RUN useradd --home-dir /antares --uid 1000 antares
 
-RUN mkdir -p /workdir/antares_environment/antares_bin; \
-    mkdir -p /workdir/antares_environment/antares_output; \
-    cd /workdir/antares_environment/antares_src; bash make.sh; \ 
-    chown -R antares:antares /workdir
+RUN chown -R antares:antares /antares
 
 USER antares
 
-WORKDIR /workdir
+WORKDIR /antares
 
-ENV ANTARES_CONFIG_FILE=/antares_data_server/antares_data_server/config_dir/config.yml
+ENV ANTARES_CONFIG_FILE=/antares/config.yml
 
-ENTRYPOINT [ "/bin/bash", "/workdir/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/bash", "/antares/entrypoint.sh" ]

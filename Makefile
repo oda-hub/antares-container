@@ -8,7 +8,7 @@ run: build
 		-it \
 		-u $(shell id -u) \
 		-v /tmp/dev/log:/var/log/containers \
-		-v /tmp/dev/workdir:/workdir/antares_environment/antares_output \
+		-v /tmp/dev/antares-output:/antares/output \
 		--rm \
 		-p 8000:8000 \
 		--name dev-oda-antares \
