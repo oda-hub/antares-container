@@ -5,6 +5,10 @@ from openkm3.store import KM3Store
 from antares_data_server.backend_api import Configurer
 import os
 import pandas as pd
+import shutil
+
+class ConfigError(Exception):
+    pass
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
@@ -14,7 +18,26 @@ def main(argv=None):
 
     conf = Configurer.from_conf_file(conf_file)
 
-    os.makedirs(conf.data_dir)
+    if conf.data_dir:
+        os.makedirs(conf.data_dir)
+    else:
+        print('Data directory is not set. Using packaged-in data (2012 dataset)')
+        return 
+
+    if os.environ.get('ANTARES_NO_POPULATE', False):
+        if (os.path.isfile(os.path.join(conf.data_dir, 'ANTARES.data')) and 
+            os.path.isfile(os.path.join(conf.data_dir, 'acc.txt')) and 
+            os.path.isfile(os.path.join(conf.data_dir, 'background.txt')) 
+           ) or (
+            os.path.islink(os.path.join(conf.data_dir, 'ANTARES.data')) and 
+            os.path.islink(os.path.join(conf.data_dir, 'acc.txt')) and 
+            os.path.islink(os.path.join(conf.data_dir, 'background.txt'))
+           ): 
+           print('ANTARES data present in ' + conf.data_dir)
+           return
+        else:
+            raise ConfigError('ANTARES_NO_POPULATE environment variable is set, \
+                but there is no data in ' + conf.data_dir)
 
     store = KM3Store()
     interpolation = store.get("ana20_01_bkg")
