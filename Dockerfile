@@ -2,13 +2,10 @@ FROM rootproject/root:6.22.08-ubuntu20.04
 
 RUN apt-get update -qq && apt-get -y install python3-pip git
 
-RUN pip3 install git+https://git.km3net.de/open-data/openkm3
-
 ADD antares-backend /antares-backend
 RUN pip3 install -r /antares-backend/requirements.txt && \
-    pip3 install /antares-backend
+    pip3 install -e /antares-backend[dataload]
 
-ADD populate_data.py /antares/populate_data.py
 ADD config.yml /antares/config.yml
 ADD entrypoint.sh /antares/entrypoint.sh
 
