@@ -3,7 +3,10 @@ FROM rootproject/root:6.22.08-ubuntu20.04
 RUN apt-get update -qq && apt-get -y install python3-pip git
 
 ADD antares-backend /antares-backend
-RUN pip3 install -r /antares-backend/requirements.txt && \
+RUN cd /antares-backend/antares_src && \
+    g++ multiMessenger.cc -o multiMessenger `root-config --cflags --glibs` && \
+    cp multiMessenger ../antares_data_server/antares_bin/. && \
+    pip3 install -r /antares-backend/requirements.txt && \
     pip3 install -e /antares-backend[dataload]
 
 ADD config.yml /antares/config.yml
