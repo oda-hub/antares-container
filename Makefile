@@ -6,7 +6,6 @@ image_latest=densavchenko/antares:latest
 run: build
 	docker run \
 		-it \
-		-u $(shell id -u) \
 		-v /tmp/dev/log:/var/log/containers \
 		-v /tmp/dev/antares-output:/antares/output \
 		--rm \
