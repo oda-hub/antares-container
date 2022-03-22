@@ -1,7 +1,8 @@
 version ?= $(shell git describe --always)
+org ?= odahub
 
-image=densavchenko/antares:$(version)
-image_latest=densavchenko/antares:latest
+image=$(org)/antares:$(version)
+image_latest=$(org)/antares:latest
 
 run: build
 	docker run \
