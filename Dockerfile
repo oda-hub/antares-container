@@ -1,6 +1,6 @@
 FROM rootproject/root:6.22.08-ubuntu20.04
 
-RUN apt-get update -qq && apt-get -y install python3-pip git
+RUN apt-get update -qq && apt-get -y install python3-pip git ca-certificates -y && update-ca-certificates
 
 ADD antares-backend /antares-backend
 RUN cd /antares-backend/antares_src && \
