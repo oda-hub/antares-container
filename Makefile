@@ -6,11 +6,10 @@ image_latest=densavchenko/antares:latest
 run: build
 	docker run \
 		-it \
-		-u $(shell id -u) \
 		-v /tmp/dev/log:/var/log/containers \
 		-v /tmp/dev/antares-output:/antares/output \
 		--rm \
-		-p 8000:8000 \
+		-p 5002:8000 \
 		--name dev-oda-antares \
 		$(image) 
 

@@ -1,4 +1,4 @@
 url: 0.0.0.0
 port: 8000
-data_dir: /antares/data
+data_dir: #empty to use pre-packed
 out_dir: /antares/output
